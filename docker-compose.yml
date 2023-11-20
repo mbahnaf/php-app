@@ -1,0 +1,32 @@
+# Use root/example user/password credentials
+version: '3.1'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html/
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: n0passw0rd121
+      MYSQL_DATABASE: onlineshop
+    volumes:
+      - /opt/mysql-data:/var/lib/mysql
+      - ./src/database/onlineshop.sql:/docker-entrypoint-initdb.d/1.sql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8081
+
+volumes:
+  mysql-data:
