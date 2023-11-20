@@ -8,7 +8,7 @@
         dest: /tmp/
         owner: root
         group: root
-        mode: '0740'
+        mode: '0700'
 
     - name: Run join script
       shell: /tmp/join_command.sh
